@@ -57,6 +57,12 @@ app.post('/login', (req, res) => {
   });
 });
 
+// Logout endpoint
+app.post('/logout', (req, res) => {
+  // Perform any necessary cleanup, e.g., invalidate session, etc.
+  res.json({ success: true });
+});
+
 // Start the Express server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
