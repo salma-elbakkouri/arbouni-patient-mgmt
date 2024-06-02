@@ -1,3 +1,7 @@
+*
+{
+  background-color: #f0f0f0;
+}
 .login-container {
   display: flex;
   justify-content: center;
@@ -15,11 +19,13 @@
   align-items: center;
   width: 100%;
   max-width: 430px;
+  background-color: inherit !important;
 }
 
 .login-image {
   width: 40%;
   height: auto;
+  background-color: transparent !important;;
 }
 
 .login-form {
@@ -37,15 +43,18 @@
 
 h2 {
   margin-bottom: 40px;
+  background-color: inherit;
 }
 
 .user-form {
   width: 100%;
+  background-color: inherit !important;
 }
 
 .form-group {
   position: relative;
   margin-bottom: 30px;
+  background-color: inherit !important;
 }
 
 .floating-label {
@@ -92,11 +101,20 @@ input {
   font-size: 16px;
 }
 
+.submit-button:hover {
+  background-color: #142e38;
+}
+
 .footer-text {
   margin-top: 20px;
   color: rgb(138, 138, 138);
   font-size: 12px;
   text-align: center;
+  cursor: pointer;
+  background-color: inherit !important;
+}
+.footer-text:hover {
+  color: black;
 }
 
 @media (max-width: 768px) {
@@ -112,3 +130,6 @@ input {
     margin-bottom: 20px;
   }
 }
+
+
+
