@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
@@ -7,7 +6,7 @@ const bodyParser = require('body-parser');
 
 // Create an Express app
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -62,6 +61,53 @@ app.post('/logout', (req, res) => {
   // Perform any necessary cleanup, e.g., invalidate session, etc.
   res.json({ success: true });
 });
+
+// Add to your existing Express server code
+
+// Create the patients table if it doesn't exist
+db.run(`
+  CREATE TABLE IF NOT EXISTS patients (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullName TEXT,
+    phoneNumber TEXT,
+    type TEXT,
+    completedSessions INTEGER,
+    totalSessions INTEGER
+  )
+`, (err) => {
+  if (err) {
+    console.error('Could not create patients table', err);
+  } else {
+    console.log('Patients table created or already exists');
+  }
+});
+
+// Run this code to insert a sample patient
+db.run(`
+  INSERT INTO patients (fullName, phoneNumber, type, completedSessions, totalSessions) 
+  VALUES ('El bakkouri salma', '06 13 17 90 25', 'Kinésithérapie', 6, 8)
+`, (err) => {
+  if (err) {
+    console.error('Could not insert sample patient', err);
+  } else {
+    console.log('Sample patient inserted');
+  }
+});
+
+
+// Endpoint to retrieve patients
+app.get('/patients', (req, res) => {
+  db.all('SELECT * FROM patients', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+
+
 
 // Start the Express server
 app.listen(port, () => {

@@ -88,7 +88,7 @@ const Menu = () => {
   const handleMenuClick = (name) => {
     if (name === 'logout') {
       if (window.confirm('Are you sure you want to log out?')) {
-        fetch('http://localhost:3000/logout', {
+        fetch('http://localhost:3001/logout', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
