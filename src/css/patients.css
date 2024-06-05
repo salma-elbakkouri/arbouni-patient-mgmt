@@ -12,7 +12,7 @@
     color: white;
     border: none;
     border-radius: 30px;
-    padding: 10px 27px;
+    padding: 8px 27px;
     font-size: 16px;
     display: flex;
     flex-direction: row;
@@ -30,3 +30,34 @@
     margin-right: 10px;
     font-size: 15px;
 }
+
+.patients-table {
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-top: 20px;
+}
+
+
+
+.patients-table th, .patients-table td {
+    padding: 12px;
+}
+
+.patients-table td {
+    background-color: white;
+}
+
+.actions-icons .faEdit,
+.actions-icons .faTrash,
+.actions-icons .faEllipsisV {
+    color: #4D869C;
+}
+
+thead tr>th
+ {
+    background-color: #E4E7ED;
+    color: #265365;
+ }
+
+
