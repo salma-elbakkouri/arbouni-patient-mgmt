@@ -11,6 +11,7 @@
   background-color: #fff;
   display: flex;
   flex-direction: row;
+  
   width: 100%;
   padding-top:10px;
   padding-bottom: 10px;
@@ -43,7 +44,6 @@ img {
 .menu-items {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   background-color: inherit;
   width: 85%;
 }

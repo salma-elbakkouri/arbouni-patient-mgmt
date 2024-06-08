@@ -1,9 +1,8 @@
-// src/components/UpdatePatient.js
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../css/updatepatient.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faPhone, faAsterisk, faSuitcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPhone, faAsterisk, faSuitcaseMedical, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const UpdatePatient = () => {
   const { state } = useLocation();
@@ -14,6 +13,8 @@ const UpdatePatient = () => {
   const [type, setType] = useState('');
   const [totalSessions, setTotalSessions] = useState('');
   const [completedSessions, setCompletedSessions] = useState('');
+  const [appointmentDate, setAppointmentDate] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (patient) {
@@ -22,11 +23,22 @@ const UpdatePatient = () => {
       setType(patient.type);
       setTotalSessions(patient.totalSessions);
       setCompletedSessions(patient.completedSessions);
+
+      // Adjust the time to local time zone
+      const localDate = new Date(patient.date);
+      const offset = localDate.getTimezoneOffset();
+      localDate.setMinutes(localDate.getMinutes() - offset);
+      setAppointmentDate(localDate.toISOString().slice(0, 16));
     }
   }, [patient]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (parseInt(completedSessions) > parseInt(totalSessions)) {
+      setError("Les séances complétées ne peuvent pas être supérieures au nombre total de séances. Veuillez réinsérer.");
+      return;
+    }
 
     const response = await fetch('http://localhost:3001/updatePatient', {
       method: 'POST',
@@ -39,7 +51,8 @@ const UpdatePatient = () => {
         phoneNumber, 
         type, 
         totalSessions, 
-        completedSessions 
+        completedSessions,
+        date: appointmentDate,
       }),
     });
 
@@ -124,6 +137,19 @@ const UpdatePatient = () => {
             />
             <FontAwesomeIcon icon={faAsterisk} className="input-icon" />
           </div>
+          <div className="form-group">
+            <label htmlFor="appointmentDate" className="floating-label">Date et Heure de Rendez-vous</label>
+            <input
+              type="datetime-local"
+              id="appointmentDate"
+              name="appointmentDate"
+              value={appointmentDate}
+              onChange={(e) => setAppointmentDate(e.target.value)}
+              required
+            />
+            <FontAwesomeIcon icon={faCalendarAlt} className="input-icon" />
+          </div>
+          {error && <p className="error-message">{error}</p>}
           <button type="submit" className="submit-button">Valider</button>
         </form>
       </div>

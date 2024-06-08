@@ -1,4 +1,3 @@
-// src/components/Patients.js
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -51,12 +50,10 @@ const Patients = () => {
 
   const handleEdit = (patient) => {
     navigate(`/dashboard/patients/updatePatient`, { state: { patient } });
-    fetchPatients();
   };
 
   const handleAddNew = () => {
     navigate('/dashboard/patients/addPatient');
-    fetchPatients();
   };
 
   return (
@@ -65,14 +62,14 @@ const Patients = () => {
         <div className="actions">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Rechercher"
             value={searchTerm}
             onChange={handleSearchChange}
             className="search-input"
           />
           <button className="new-patient-button" onClick={handleAddNew}>
             <FontAwesomeIcon className='plus-icon icon-white' icon={faPlus} />
-            New Patient
+            Nouveau Patient
           </button>
         </div>
       </div>
@@ -84,6 +81,7 @@ const Patients = () => {
             <th>Type</th>
             <th>Progres des seances</th>
             <th>NB des Seances</th>
+            <th>Date d'enregistrement</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -103,6 +101,7 @@ const Patients = () => {
                 </div>
               </td>
               <td>{patient.totalSessions} seances</td>
+              <td>{new Date(patient.date).toLocaleString()}</td>
               <td className="actions-icons">
                 <FontAwesomeIcon className='icon' color='#265365' icon={faEdit} onClick={() => handleEdit(patient)} />
                 <FontAwesomeIcon className='icon' color='#265365' icon={faTrash} onClick={() => handleDelete(patient.id)} />
@@ -110,7 +109,7 @@ const Patients = () => {
             </tr>
           )) : (
             <tr>
-              <td colSpan="6">No patients available</td>
+              <td colSpan="7">Aucun patient enregistré</td>
             </tr>
           )}
         </tbody>

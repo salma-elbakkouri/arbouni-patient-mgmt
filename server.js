@@ -17,6 +17,19 @@ const db = new sqlite3.Database('./src/data/db.db', (err) => {
     console.error('Could not connect to database', err);
   } else {
     console.log('Connected to SQLite database');
+
+    // Create patients table if it doesn't exist
+    db.run(`
+      CREATE TABLE IF NOT EXISTS patients (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        fullName TEXT NOT NULL,
+        phoneNumber TEXT NOT NULL,
+        type TEXT NOT NULL,
+        completedSessions INTEGER NOT NULL DEFAULT 0,
+        totalSessions INTEGER NOT NULL,
+        date TEXT DEFAULT (datetime('now', 'localtime'))
+      )
+    `);
   }
 });
 
@@ -43,52 +56,51 @@ app.post('/login', (req, res) => {
 
 // Logout endpoint
 app.post('/logout', (req, res) => {
-  // Perform any necessary cleanup, e.g., invalidate session, etc.
   res.json({ success: true });
 });
 
 // Endpoint to add a new patient
 app.post('/addPatient', (req, res) => {
-  const { fullName, phoneNumber, type, totalSessions } = req.body;
+  const { fullName, phoneNumber, type, totalSessions, date } = req.body;
 
   const completedSessions = 0; // Initialize completed sessions to 0
 
   db.run(`
-    INSERT INTO patients (fullName, phoneNumber, type, completedSessions, totalSessions)
-    VALUES (?, ?, ?, ?, ?)
-  `, [fullName, phoneNumber, type, completedSessions, totalSessions], function(err) {
+    INSERT INTO patients (fullName, phoneNumber, type, completedSessions, totalSessions, date)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `, [fullName, phoneNumber, type, completedSessions, totalSessions, date], function(err) {
     if (err) {
       res.status(500).json({ success: false, message: 'Internal server error' });
     } else {
       res.json({ success: true });
-    }
-  });
-});
-
-// Endpoint to retrieve patients
-app.get('/patients', (req, res) => {
-  db.all('SELECT * FROM patients', [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ success: false, message: 'Internal server error' });
-    } else {
-      res.json(rows);
     }
   });
 });
 
 // Endpoint to update a patient
 app.post('/updatePatient', (req, res) => {
-  const { id, fullName, phoneNumber, type, totalSessions, completedSessions } = req.body;
+  const { id, fullName, phoneNumber, type, totalSessions, completedSessions, date } = req.body;
 
   db.run(`
     UPDATE patients
-    SET fullName = ?, phoneNumber = ?, type = ?, totalSessions = ?, completedSessions = ?
+    SET fullName = ?, phoneNumber = ?, type = ?, totalSessions = ?, completedSessions = ?, date = ?
     WHERE id = ?
-  `, [fullName, phoneNumber, type, totalSessions, completedSessions, id], function(err) {
+  `, [fullName, phoneNumber, type, totalSessions, completedSessions, date, id], function(err) {
     if (err) {
       res.status(500).json({ success: false, message: 'Internal server error' });
     } else {
       res.json({ success: true });
+    }
+  });
+});
+
+// Endpoint to get all patients
+app.get('/patients', (req, res) => {
+  db.all('SELECT * FROM patients', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json(rows);
     }
   });
 });
@@ -102,6 +114,38 @@ app.post('/deletePatient', (req, res) => {
       res.status(500).json({ success: false, message: 'Internal server error' });
     } else {
       res.json({ success: true });
+    }
+  });
+});
+
+// Endpoint to retrieve statistics
+app.get('/api/statistics', (req, res) => {
+  const stats = {
+    treatmentSessions: [],
+    treatmentTypes: [],
+    totalPatients: 0,
+  };
+
+  db.all('SELECT COUNT(*) AS count, strftime("%w", date) AS day FROM patients GROUP BY day', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      stats.treatmentSessions = rows.map(row => row.count);
+      db.all('SELECT type, COUNT(*) AS count FROM patients GROUP BY type', [], (err, rows) => {
+        if (err) {
+          res.status(500).json({ success: false, message: 'Internal server error' });
+        } else {
+          stats.treatmentTypes = rows;
+          db.get('SELECT COUNT(*) AS count FROM patients', [], (err, row) => {
+            if (err) {
+              res.status(500).json({ success: false, message: 'Internal server error' });
+            } else {
+              stats.totalPatients = row.count;
+              res.json(stats);
+            }
+          });
+        }
+      });
     }
   });
 });

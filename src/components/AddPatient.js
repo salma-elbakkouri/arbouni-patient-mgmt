@@ -1,15 +1,22 @@
-// src/components/AddPatient.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/addpatient.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faPhone, faLock, faAsterisk , faSuitcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPhone, faAsterisk, faSuitcaseMedical, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const AddPatient = () => {
+  const getCurrentDateTime = () => {
+    const date = new Date();
+    const offset = date.getTimezoneOffset();
+    date.setMinutes(date.getMinutes() - offset); // Adjust the time to local time zone
+    return date.toISOString().slice(0, 16); // Format: YYYY-MM-DDTHH:MM
+  };
+
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [type, setType] = useState('');
   const [totalSessions, setTotalSessions] = useState('');
+  const [appointmentDate, setAppointmentDate] = useState(getCurrentDateTime());
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,7 +27,7 @@ const AddPatient = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ fullName, phoneNumber, type, totalSessions }),
+      body: JSON.stringify({ fullName, phoneNumber, type, totalSessions, date: appointmentDate }),
     });
 
     const data = await response.json();
@@ -91,6 +98,18 @@ const AddPatient = () => {
               required
             />
             <FontAwesomeIcon icon={faAsterisk} className="input-icon" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="appointmentDate" className="floating-label">Date et Heure de Rendez-vous</label>
+            <input
+              type="datetime-local"
+              id="appointmentDate"
+              name="appointmentDate"
+              value={appointmentDate}
+              onChange={(e) => setAppointmentDate(e.target.value)}
+              required
+            />
+            <FontAwesomeIcon icon={faCalendarAlt} className="input-icon" />
           </div>
           <button type="submit" className="submit-button">Valider</button>
         </form>

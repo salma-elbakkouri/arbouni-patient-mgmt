@@ -1,4 +1,3 @@
-/* src/css/addpatient.css */
 .add-patient-container {
   display: flex;
   justify-content: center;
@@ -60,6 +59,7 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
+
 .input-icon {
   font-size: 13px;
   position: absolute;
@@ -87,7 +87,6 @@ select {
 .submit-button:hover {
   background-color: #142e38;
 }
-
 
 option {
   padding: 10px 0; /* Add padding to each option */
