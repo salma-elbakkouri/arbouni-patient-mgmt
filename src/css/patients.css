@@ -116,9 +116,14 @@
   border-bottom-left-radius: 15px;
 }
 
+.progress.complete {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
 .progress-value {
   font-size: 14px;
-  color: #265365;
+  color: #4D869C;
   background-color: inherit;
 }
   

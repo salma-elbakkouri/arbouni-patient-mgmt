@@ -20,21 +20,6 @@ const db = new sqlite3.Database('./src/data/db.db', (err) => {
   }
 });
 
-// Create the users table if it doesn't exist
-// db.run(`
-//   CREATE TABLE IF NOT EXISTS users (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     username TEXT UNIQUE,
-//     password TEXT
-//   )
-// `, (err) => {
-//   if (err) {
-//     console.error('Could not create table', err);
-//   } else {
-//     console.log('Users table created or already exists');
-//   }
-// });
-
 // Login endpoint
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -62,27 +47,6 @@ app.post('/logout', (req, res) => {
   res.json({ success: true });
 });
 
-
-
-
-// Create the patients table if it doesn't exist
-// db.run(`
-//   CREATE TABLE IF NOT EXISTS patients (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     fullName TEXT,
-//     phoneNumber TEXT,
-//     type TEXT,
-//     completedSessions INTEGER,
-//     totalSessions INTEGER
-//   )
-// `, (err) => {
-//   if (err) {
-//     console.error('Could not create patients table', err);
-//   } else {
-//     console.log('Patients table created or already exists');
-//   }
-// });
-
 // Endpoint to add a new patient
 app.post('/addPatient', (req, res) => {
   const { fullName, phoneNumber, type, totalSessions } = req.body;
@@ -108,6 +72,36 @@ app.get('/patients', (req, res) => {
       res.status(500).json({ success: false, message: 'Internal server error' });
     } else {
       res.json(rows);
+    }
+  });
+});
+
+// Endpoint to update a patient
+app.post('/updatePatient', (req, res) => {
+  const { id, fullName, phoneNumber, type, totalSessions, completedSessions } = req.body;
+
+  db.run(`
+    UPDATE patients
+    SET fullName = ?, phoneNumber = ?, type = ?, totalSessions = ?, completedSessions = ?
+    WHERE id = ?
+  `, [fullName, phoneNumber, type, totalSessions, completedSessions, id], function(err) {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
+
+// Endpoint to delete a patient
+app.post('/deletePatient', (req, res) => {
+  const { id } = req.body;
+
+  db.run('DELETE FROM patients WHERE id = ?', [id], function(err) {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json({ success: true });
     }
   });
 });

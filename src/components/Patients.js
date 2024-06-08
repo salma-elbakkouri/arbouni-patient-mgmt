@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import '../css/patients.css';
 
 const Patients = () => {
@@ -24,6 +24,26 @@ const Patients = () => {
   const filteredPatients = patients.filter(patient =>
     patient.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this patient?')) {
+      const response = await fetch('http://localhost:3001/deletePatient', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setPatients(patients.filter(patient => patient.id !== id));
+      } else {
+        alert('Error deleting patient. Please try again.');
+      }
+    }
+  };
 
   return (
     <div className="patients">
@@ -61,17 +81,18 @@ const Patients = () => {
               <td>{patient.phoneNumber}</td>
               <td>{patient.type}</td>
               <td>
-                <div className="progress-container">
+              <div className="progress-container">
                   <div className="progress-bar">
-                    <div className="progress" style={{ width: `${(patient.completedSessions / patient.totalSessions) * 100}%` }}></div>
+                    <div className={`progress ${patient.completedSessions === patient.totalSessions ? 'complete' : ''}`} 
+                      style={{ width: `${(patient.completedSessions / patient.totalSessions) * 100}%` }}></div>
                   </div>
                   <span className="progress-value">{patient.completedSessions}/{patient.totalSessions}</span>
                 </div>
               </td>
               <td>{patient.totalSessions} seances</td>
               <td className="actions-icons">
-                <FontAwesomeIcon className='icon' color='#265365' icon={faEdit} />
-                <FontAwesomeIcon className='icon' color='#265365' icon={faTrash} />
+                <FontAwesomeIcon className='icon' color='#265365' icon={faEdit} onClick={() => navigate(`/dashboard/patients/updatePatient`, { state: { patient } })} />
+                <FontAwesomeIcon className='icon' color='#265365' icon={faTrash} onClick={() => handleDelete(patient.id)} />
               </td>
             </tr>
           )) : (

@@ -26,6 +26,7 @@ const Login = () => {
     const data = await response.json();
 
     if (data.success) {
+      localStorage.setItem('isAuthenticated', 'true');  // Set flag in local storage
       navigate('/dashboard');
     } else {
       setError('Wrong credentials. Please try again.');
@@ -72,7 +73,5 @@ const Login = () => {
     </div>
   );
 }
-
-
 
 export default Login;
