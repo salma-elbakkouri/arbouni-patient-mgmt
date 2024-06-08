@@ -62,7 +62,8 @@ app.post('/logout', (req, res) => {
   res.json({ success: true });
 });
 
-// Add to your existing Express server code
+
+
 
 // Create the patients table if it doesn't exist
 // db.run(`
@@ -82,18 +83,23 @@ app.post('/logout', (req, res) => {
 //   }
 // });
 
-// Run this code to insert a sample patient
-// db.run(`
-//   INSERT INTO patients (fullName, phoneNumber, type, completedSessions, totalSessions) 
-//   VALUES ('El bakkouri salma', '06 13 17 90 25', 'Kinésithérapie', 6, 8)
-// `, (err) => {
-//   if (err) {
-//     console.error('Could not insert sample patient', err);
-//   } else {
-//     console.log('Sample patient inserted');
-//   }
-// });
+// Endpoint to add a new patient
+app.post('/addPatient', (req, res) => {
+  const { fullName, phoneNumber, type, totalSessions } = req.body;
 
+  const completedSessions = 0; // Initialize completed sessions to 0
+
+  db.run(`
+    INSERT INTO patients (fullName, phoneNumber, type, completedSessions, totalSessions)
+    VALUES (?, ?, ?, ?, ?)
+  `, [fullName, phoneNumber, type, completedSessions, totalSessions], function(err) {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
 
 // Endpoint to retrieve patients
 app.get('/patients', (req, res) => {
@@ -105,9 +111,6 @@ app.get('/patients', (req, res) => {
     }
   });
 });
-
-
-
 
 // Start the Express server
 app.listen(port, () => {

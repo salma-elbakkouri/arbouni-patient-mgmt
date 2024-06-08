@@ -1,0 +1,97 @@
+/* src/css/addpatient.css */
+.add-patient-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.add-patient-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 430px;
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+}
+
+h2 {
+  margin-bottom: 40px;
+}
+
+.patient-form {
+  width: 100%;
+  background-color: inherit;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.floating-label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background-color: white;
+  font-size: 14px;
+  color: #737373;
+  z-index: 1;
+  padding: 0 9px;
+}
+
+input,
+select {
+  padding: 14px 16px;
+  border: 1px solid #d2d2d2;
+  border-radius: 35px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.input-icon {
+  font-size: 13px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: #f3f3f3;
+  padding: 10px;
+  color: #4D869C;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: #265365;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 35px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background-color: #142e38;
+}
+
+
+option {
+  padding: 10px 0; /* Add padding to each option */
+  background-color: white;
+  color: #1f3c47;
+  font-size: 15px;
+}

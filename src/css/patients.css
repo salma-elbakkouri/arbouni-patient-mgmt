@@ -1,4 +1,9 @@
 /* src/css/patients.css */
+
+
+.patients {
+  padding: 15px;
+}
 .title-header h2{
   margin-left: 10px;
 }
@@ -62,11 +67,22 @@
 {
   border-top-left-radius: 20px;
 }
+.patients-table tbody tr:last-child > td:first-child
+{
+  border-bottom-left-radius: 20px;
+}
+
+
+.patients-table tbody tr:last-child > td:last-child
+{
+  border-bottom-right-radius: 20px;
+}
+
 
 .patients-table tbody tr {
   background-color: white; 
 }
-.patients-table tbody tr td , .patients-table .actions-icons
+.patients-table tbody tr td 
 {
   background-color: inherit; 
   padding:20px 25px;
@@ -77,22 +93,7 @@
   text-align: left;
 }
 
-.actions-icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
 
-.actions-icons .icon {
-  cursor: pointer;
-  color: #4D869C;
-  background: inherit;
-}
-
-.actions-icons .icon:hover {
-  color: #265365;
-}
 
 .progress-container {
   display: flex;
@@ -118,5 +119,17 @@
 .progress-value {
   font-size: 14px;
   color: #265365;
+  background-color: inherit;
+}
+  
+
+.actions-icons .icon {
+  color: #265365;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.actions-icons .icon:hover {
+  color: #23404c;
   background-color: inherit;
 }

@@ -1,5 +1,6 @@
 // src/components/Patients.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import '../css/patients.css';
@@ -7,6 +8,7 @@ import '../css/patients.css';
 const Patients = () => {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('http://localhost:3001/patients')
@@ -35,7 +37,7 @@ const Patients = () => {
             onChange={handleSearchChange}
             className="search-input"
           />
-          <button className="new-patient-button">
+          <button className="new-patient-button" onClick={() => navigate('/dashboard/patients/addPatient')}>
             <FontAwesomeIcon className='plus-icon icon-white' icon={faPlus} />
             New Patient
           </button>
@@ -70,7 +72,6 @@ const Patients = () => {
               <td className="actions-icons">
                 <FontAwesomeIcon className='icon' color='#265365' icon={faEdit} />
                 <FontAwesomeIcon className='icon' color='#265365' icon={faTrash} />
-                <FontAwesomeIcon className='icon' color='#265365' icon={faEllipsisV} />
               </td>
             </tr>
           )) : (

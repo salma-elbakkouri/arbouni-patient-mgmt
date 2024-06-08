@@ -112,3 +112,29 @@
     background-color: #f0f0f0;
     /* Hover state for table rows */
   }
+
+
+  /* Custom scrollbar for WebKit-based browsers */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #b3c9cf9f;
+  border-radius: 6px;
+  border: 3px solid #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #b3c9cf9f;
+}
+
+/* Custom scrollbar for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b3c9cf9f #f0f0f0;
+}
