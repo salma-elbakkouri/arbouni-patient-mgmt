@@ -45,6 +45,7 @@ const Statistics = () => {
   const treatmentSessionsData = {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     datasets: [{
+      borderRadius: 4,
       label: 'Treatment Sessions',
       data: stats.treatmentSessions,
       backgroundColor: 'black',
@@ -77,29 +78,30 @@ const Statistics = () => {
       <div className="stat-box treatmentSessionsData-box">
         <Bar data={treatmentSessionsData} />
       </div>
+      <div className="stat-box lineChartData-box">
+        <Line data={lineChartData} />
+      </div>
       <div className="stat-box treatmentTable-box">
         <table>
           <thead>
             <tr>
-              <th>Source</th>
-              <th>Seances</th>
-              <th>Change</th>
+              <th>Traitement</th>
+              <th className="right-align">Seances</th>
+              <th className="right-align">Termines</th>
             </tr>
           </thead>
           <tbody>
             {stats.treatmentTypes.map((type, index) => (
               <tr key={index}>
-                <td>{type.type}</td>
-                <td>{type.totalSessions}</td>
-                <td>{type.percentageCompleted}%</td>
+                <td className="source-column">{type.type}</td>
+                <td className="right-align">{type.totalSessions}</td>
+                <td className="right-align">{type.percentageCompleted}%</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className="stat-box lineChartData-box">
-        <Line data={lineChartData} />
-      </div>
+      
       <div className="stat-box treatmentTypesData-box">
         <h3>Type de Traitements</h3>
         <Doughnut ref={doughnutChartRef} data={treatmentTypesData} options={{ plugins: { legend: { display: false } } }} />

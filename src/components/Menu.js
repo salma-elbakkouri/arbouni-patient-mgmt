@@ -17,6 +17,7 @@ const Menu = () => {
   }, [location]);
 
   const menuItems = [
+    { name: 'dashboard', label: 'Tableau de bord', icon: faBarsStaggered },
     { name: 'patients', label: 'Patients', icon: faHospitalUser },
     { name: 'statistics', label: 'Statistiques', icon: faChartPie },
     { name: 'users', label: 'Utilisateurs', icon: faUsers },

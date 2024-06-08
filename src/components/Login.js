@@ -29,7 +29,7 @@ const Login = () => {
 
     if (data.success) {
       login('dummy-token');
-      navigate('/dashboard');
+      navigate('/dashboard/patients');
     } else {
       setError('Identifiants incorrects. Veuillez réessayer');
     }
