@@ -62,7 +62,6 @@ const Patients = () => {
   return (
     <div className="patients">
       <div className="title-header">
-        <h2>Les patients</h2>
         <div className="actions">
           <input
             type="text"

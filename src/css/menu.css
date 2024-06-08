@@ -2,74 +2,70 @@
 
 .app-container {
   display: flex;
+  flex-direction: column;
   height: 100vh;
-  overflow: hidden; /* Prevent overflow for the entire app container */
+  overflow: hidden;
 }
 
 .menu {
+  background-color: #fff;
   display: flex;
-  flex-direction: column;
-  width: 250px;
-  background-color: white;
-  overflow: hidden; /* Prevent overflow within the menu */
+  flex-direction: row;
+  width: 100%;
+  padding-top:10px;
+  padding-bottom: 10px;
 }
 
 .menu-header {
-  background-color: white;
+  background-color: inherit;
   display: flex;
-  flex-direction: row;
-  padding: 0px 40px;
+  padding:20px 40px;
   align-items: center;
   cursor: pointer;
-  margin-top: 40px;
 }
 
 .header-text {
-  background-color: inherit;
   display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
+  align-items: center; /* Align items vertically */
+  margin-left: 10px;
+  background-color: inherit;
 }
 
 .header-text h2 {
   font-size: 16px;
   margin: 0;
-  padding: 0;
 }
 
 img {
-  background-color: inherit;
   height: 27px;
-  margin-right: 10px;
-  padding: 0;
 }
 
 .menu-items {
-  background: white;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 55px;
-  flex-grow: 1;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: inherit;
+  width: 85%;
 }
 
 .menu-item {
+  color: #9FA3B5;
+  font-size: 16px;
+  background-color: inherit;
+  padding: 20px 30px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 20px 50px; 
-  color: #9FA3B5;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.menu-item .icon {
-  margin-right: 15px;
-  background-color: inherit;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .menu-item:hover {
   color: #4D869C;
+}
+
+.menu-item .icon {
+  background-color: inherit;
+  margin-right: 10px;
 }
 
 .menu-item.active {
@@ -77,6 +73,5 @@ img {
 }
 
 .logout-item {
-  margin-top: auto;
-  padding-bottom: 30px;
+  margin-left: auto;
 }

@@ -2,7 +2,7 @@
 
   /* General styling for background color */
   body {
-    background-color: #F0F0F0;
+    background-color: white;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -63,25 +63,12 @@
 
   /* Menu styles */
   .menu {
-    background-color: white;
+    background-color: inherit;
     /* Menu background color */
   }
 
-  .menu-item {
-    color: #9FA3B5;
-    font-size: 16px;
-    background-color: inherit;
-    padding: 21px 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: color 0.3s, transform 0.3s;
-  }
-
-  .menu-item:hover {
-    color: #4D869C;
-    transform: translateY(3px);
-  }
+ 
+  /* transform: translateY(3px); */
 
   .menu-item:hover .icon {
     color: #4D869C;
