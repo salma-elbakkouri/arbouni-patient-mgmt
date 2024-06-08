@@ -1,29 +1,68 @@
+/* statistics.css */
 .statistics-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
-  }
-  
-  .chart-container,
-  .summary-container {
-    background-color: #fff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-  }
-  
-  .chart-container h2,
-  .summary-container h2 {
-    margin-bottom: 20px;
-  }
-  
-  .total-patients {
-    font-size: 48px;
-    color: #333;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.stat-box {
+  border: 1px solid #dedededc;
+  border-radius: 10px;
+  height: 260px;
+  box-shadow: 0 4px 8px rgba(109, 109, 109, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.treatmentSessionsData-box {
+  width: 400px;
+  padding: 30px 80px;
+}
+
+.lineChartData-box {
+  width: 1000px; /* Set width to 1000px */
+  padding: 30px 20px;
+}
+
+.treatmentTypesData-box {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 30px 20px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.treatmentTypesData-box h3 {
+  color: rgb(50, 54, 58);
+  font-weight: 400;
+}
+
+.treatmentTypesData-box canvas {
+  margin-top: 40px;
+  width: 150px !important; /* Adjust width */
+  height: 150px !important; /* Adjust height */
+}
+
+.treatmentTable-box {
+  width: 400px;
+  padding: 20px;
+}
+
+.treatmentTable-box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.treatmentTable-box th, .treatmentTable-box td {
+  border: 1px solid #dedededc;
+  padding: 8px;
+  text-align: center;
+}
+
+.treatmentTable-box th {
+  background-color: #f5f5f5;
+}

@@ -118,7 +118,6 @@ app.post('/deletePatient', (req, res) => {
   });
 });
 
-// Endpoint to retrieve statistics
 app.get('/api/statistics', (req, res) => {
   const stats = {
     treatmentSessions: [],
@@ -130,12 +129,22 @@ app.get('/api/statistics', (req, res) => {
     if (err) {
       res.status(500).json({ success: false, message: 'Internal server error' });
     } else {
-      stats.treatmentSessions = rows.map(row => row.count);
-      db.all('SELECT type, COUNT(*) AS count FROM patients GROUP BY type', [], (err, rows) => {
+      stats.treatmentSessions = new Array(7).fill(0);
+      rows.forEach(row => {
+        stats.treatmentSessions[row.day] = row.count;
+      });
+
+      db.all('SELECT type, COUNT(*) AS totalSessions, SUM(completedSessions) AS completedSessions FROM patients GROUP BY type', [], (err, rows) => {
         if (err) {
           res.status(500).json({ success: false, message: 'Internal server error' });
         } else {
-          stats.treatmentTypes = rows;
+          stats.treatmentTypes = rows.map(row => ({
+            type: row.type,
+            totalSessions: row.totalSessions,
+            completedSessions: row.completedSessions,
+            percentageCompleted: ((row.completedSessions / row.totalSessions) * 100).toFixed(2),
+          }));
+
           db.get('SELECT COUNT(*) AS count FROM patients', [], (err, row) => {
             if (err) {
               res.status(500).json({ success: false, message: 'Internal server error' });
@@ -149,6 +158,8 @@ app.get('/api/statistics', (req, res) => {
     }
   });
 });
+
+
 
 // Start the Express server
 app.listen(port, () => {
