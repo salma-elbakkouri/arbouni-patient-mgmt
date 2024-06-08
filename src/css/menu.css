@@ -1,19 +1,9 @@
-/* General styles */
-
-* {
-  background-color: none;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  width: 250px;
-}
+/* src/css/menu.css */
 
 .app-container {
   display: flex;
   height: 100vh;
+  overflow: hidden; /* Prevent overflow for the entire app container */
 }
 
 .menu {
@@ -21,15 +11,11 @@ html, body {
   flex-direction: column;
   width: 250px;
   background-color: white;
-  flex: 1;
-  justify-content: space-between;
-}
-
-.menu-header, .menu, .menu-content, img, .menu-header p, .menu-header h2, .header-text, .menu-item span {
-  background-color: white;
+  overflow: hidden; /* Prevent overflow within the menu */
 }
 
 .menu-header {
+  background-color: white;
   display: flex;
   flex-direction: row;
   padding: 0px 40px;
@@ -39,68 +25,58 @@ html, body {
 }
 
 .header-text {
+  background-color: inherit;
   display: flex;
   flex-direction: column;
   padding: 0;
   margin: 0;
 }
 
-.header-text p, .header-text h2 {
+.header-text h2 {
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
 
-.header-text h2 {
-  font-size: 16px;
-}
-
 img {
+  background-color: inherit;
   height: 27px;
   margin-right: 10px;
   padding: 0;
 }
 
 .menu-items {
-  background-color: white;
+  background: white;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: 35px;
-  margin-left: 15px;
+  margin-top: 55px;
   flex-grow: 1;
 }
 
 .menu-item {
-  padding: 20px 30px;
-  background-color: white;
-  cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 20px 50px; 
   color: #9FA3B5;
-  /* color: #6c6f7c; */
-  transition: color 0.3s, transform 0.3s;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.menu-item .icon {
+  margin-right: 15px;
+  background-color: inherit;
 }
 
 .menu-item:hover {
   color: #4D869C;
-  transform: translateY(-3px);
-  
 }
 
 .menu-item.active {
   color: #4D869C;
 }
 
-.menu-item:hover .icon {
-  color: #4D869C;
-}
-
-.icon {
-  background-color: #fff;
-  margin-right: 10px;
-}
-
 .logout-item {
   margin-top: auto;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }

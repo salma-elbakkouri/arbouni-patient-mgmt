@@ -28,8 +28,8 @@ db.run(`
 
 // Hash the password and insert the admin user
 const insertAdminUser = async () => {
-  const username = 'admin';
-  const password = 'yrGLhrUFSk0ZKAh';
+  const username = 'salma';
+  const password = '1234';
   const hashedPassword = await bcrypt.hash(password, 10);
 
   db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err) => {

@@ -1,63 +1,122 @@
+/* src/css/patients.css */
+.title-header h2{
+  margin-left: 10px;
+}
 .actions {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .search-input {
-    width: initial;
+  width: 200px; /* Adjust as necessary */
+  height: 40px;
+  padding: 8px 27px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  margin-right: 10px; /* Adjust margin as necessary */
 }
 
 .new-patient-button {
-    background-color: #4D869C;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 8px 27px;
-    font-size: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  background-color: #4D869C; /* Secondary button background color */
+  color: white; /* Button text color */
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  height: 40px;
+  padding: 8px 27px;
 }
 
-.new-patient-button:hover{
-    background-color: #23404c;
+.new-patient-button:hover {
+  background-color: #23404c; /* Darker hover state */
 }
 
 .plus-icon {
-    background-color: inherit;
-    margin-right: 10px;
-    font-size: 15px;
+  background-color: inherit;
+  margin-right: 10px;
 }
 
 .patients-table {
-    width: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    margin-top: 20px;
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse; /* Ensure padding doesn't add additional space */
 }
 
-
-
-.patients-table th, .patients-table td {
-    padding: 12px;
+.patients-table thead {
+  background-color: #F2F4F7;
+  color: #265365; 
 }
 
-.patients-table td {
-    background-color: white;
+.patients-table thead th {
+  padding:20px 25px;
+  background-color: #F2F4F7;
+  font-weight: 600;
+}
+.patients-table thead th:last-child  
+{
+  border-top-right-radius: 20px;
+}
+.patients-table thead th:first-child
+{
+  border-top-left-radius: 20px;
 }
 
-.actions-icons .faEdit,
-.actions-icons .faTrash,
-.actions-icons .faEllipsisV {
-    color: #4D869C;
+.patients-table tbody tr {
+  background-color: white; 
+}
+.patients-table tbody tr td , .patients-table .actions-icons
+{
+  background-color: inherit; 
+  padding:20px 25px;
 }
 
-thead tr>th
- {
-    background-color: #E4E7ED;
-    color: #265365;
- }
+.patients-table tr th 
+{
+  text-align: left;
+}
 
+.actions-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 
+.actions-icons .icon {
+  cursor: pointer;
+  color: #4D869C;
+  background: inherit;
+}
+
+.actions-icons .icon:hover {
+  color: #265365;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust gap as necessary */
+  background-color: inherit;
+}
+
+.progress-bar {
+  background-color: #EAEAEA;
+  border-radius: 20px;
+  height: 20px;
+  width: 60%;
+}
+
+.progress {
+  background-color: #4D869C;
+  height: 100%;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.progress-value {
+  font-size: 14px;
+  color: #265365;
+  background-color: inherit;
+}
