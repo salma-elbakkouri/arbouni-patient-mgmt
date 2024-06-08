@@ -21,19 +21,19 @@ const db = new sqlite3.Database('./src/data/db.db', (err) => {
 });
 
 // Create the users table if it doesn't exist
-db.run(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    password TEXT
-  )
-`, (err) => {
-  if (err) {
-    console.error('Could not create table', err);
-  } else {
-    console.log('Users table created or already exists');
-  }
-});
+// db.run(`
+//   CREATE TABLE IF NOT EXISTS users (
+//     id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     username TEXT UNIQUE,
+//     password TEXT
+//   )
+// `, (err) => {
+//   if (err) {
+//     console.error('Could not create table', err);
+//   } else {
+//     console.log('Users table created or already exists');
+//   }
+// });
 
 // Login endpoint
 app.post('/login', (req, res) => {
@@ -65,34 +65,34 @@ app.post('/logout', (req, res) => {
 // Add to your existing Express server code
 
 // Create the patients table if it doesn't exist
-db.run(`
-  CREATE TABLE IF NOT EXISTS patients (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    fullName TEXT,
-    phoneNumber TEXT,
-    type TEXT,
-    completedSessions INTEGER,
-    totalSessions INTEGER
-  )
-`, (err) => {
-  if (err) {
-    console.error('Could not create patients table', err);
-  } else {
-    console.log('Patients table created or already exists');
-  }
-});
+// db.run(`
+//   CREATE TABLE IF NOT EXISTS patients (
+//     id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     fullName TEXT,
+//     phoneNumber TEXT,
+//     type TEXT,
+//     completedSessions INTEGER,
+//     totalSessions INTEGER
+//   )
+// `, (err) => {
+//   if (err) {
+//     console.error('Could not create patients table', err);
+//   } else {
+//     console.log('Patients table created or already exists');
+//   }
+// });
 
 // Run this code to insert a sample patient
-db.run(`
-  INSERT INTO patients (fullName, phoneNumber, type, completedSessions, totalSessions) 
-  VALUES ('El bakkouri salma', '06 13 17 90 25', 'Kinésithérapie', 6, 8)
-`, (err) => {
-  if (err) {
-    console.error('Could not insert sample patient', err);
-  } else {
-    console.log('Sample patient inserted');
-  }
-});
+// db.run(`
+//   INSERT INTO patients (fullName, phoneNumber, type, completedSessions, totalSessions) 
+//   VALUES ('El bakkouri salma', '06 13 17 90 25', 'Kinésithérapie', 6, 8)
+// `, (err) => {
+//   if (err) {
+//     console.error('Could not insert sample patient', err);
+//   } else {
+//     console.log('Sample patient inserted');
+//   }
+// });
 
 
 // Endpoint to retrieve patients

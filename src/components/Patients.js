@@ -1,5 +1,5 @@
 // src/components/Patients.js
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import '../css/patients.css';
@@ -26,7 +26,7 @@ const Patients = () => {
   return (
     <div className="patients">
       <div className="title-header">
-        <h1>Les patients</h1>
+        <h2>Les patients</h2>
         <div className="actions">
           <input
             type="text"
@@ -36,9 +36,8 @@ const Patients = () => {
             className="search-input"
           />
           <button className="new-patient-button">
-            <FontAwesomeIcon className='plus-icon' icon={faPlus} />
+            <FontAwesomeIcon className='plus-icon icon-white' icon={faPlus} />
             New Patient
-            
           </button>
         </div>
       </div>
@@ -60,16 +59,18 @@ const Patients = () => {
               <td>{patient.phoneNumber}</td>
               <td>{patient.type}</td>
               <td>
-                <div className="progress-bar">
-                  <div className="progress" style={{ width: `${(patient.completedSessions / patient.totalSessions) * 100}%` }}></div>
+                <div className="progress-container">
+                  <div className="progress-bar">
+                    <div className="progress" style={{ width: `${(patient.completedSessions / patient.totalSessions) * 100}%` }}></div>
+                  </div>
+                  <span className="progress-value">{patient.completedSessions}/{patient.totalSessions}</span>
                 </div>
-                {patient.completedSessions}/{patient.totalSessions}
               </td>
               <td>{patient.totalSessions} seances</td>
               <td className="actions-icons">
-                <FontAwesomeIcon icon={faEdit} />
-                <FontAwesomeIcon icon={faTrash} />
-                <FontAwesomeIcon icon={faEllipsisV} />
+                <FontAwesomeIcon className='icon' color='#265365' icon={faEdit} />
+                <FontAwesomeIcon className='icon' color='#265365' icon={faTrash} />
+                <FontAwesomeIcon className='icon' color='#265365' icon={faEllipsisV} />
               </td>
             </tr>
           )) : (
