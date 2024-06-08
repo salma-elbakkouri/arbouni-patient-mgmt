@@ -130,6 +130,11 @@ input {
     margin-bottom: 20px;
   }
 }
-
-
-
+.error-box {
+  background-color: inherit; /* Use the parent's background color */
+  color: red; /* Change this to your desired text color */
+  padding: 10px;
+  border-radius: 5px; /* Rounded corners */
+  margin-top: 10px;
+  text-align: center  ;
+}

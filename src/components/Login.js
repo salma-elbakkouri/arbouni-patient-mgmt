@@ -1,15 +1,17 @@
 // src/components/Login.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css';
 import doctorImg from '../assets/doctor.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,10 +28,10 @@ const Login = () => {
     const data = await response.json();
 
     if (data.success) {
-      localStorage.setItem('isAuthenticated', 'true');  // Set flag in local storage
+      login('dummy-token');
       navigate('/dashboard');
     } else {
-      setError('Wrong credentials. Please try again.');
+      setError('Identifiants incorrects. Veuillez réessayer');
     }
   };
 
@@ -66,12 +68,12 @@ const Login = () => {
             </div>
             <button type="submit" className="submit-button">Se connecter</button>
             {error && <div className="error-box">{error}</div>}
-            <p className="footer-text">Creer nouveau admin ?</p>
+            <p className="footer-text">Mot de passe oublié ?</p>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

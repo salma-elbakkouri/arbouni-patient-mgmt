@@ -1,5 +1,5 @@
 // src/components/Patients.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -10,12 +10,16 @@ const Patients = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchPatients = useCallback(() => {
     fetch('http://localhost:3001/patients')
       .then(response => response.json())
       .then(data => setPatients(data))
       .catch(err => console.error('Error fetching patients:', err));
   }, []);
+
+  useEffect(() => {
+    fetchPatients();
+  }, [fetchPatients]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -38,11 +42,21 @@ const Patients = () => {
       const data = await response.json();
 
       if (data.success) {
-        setPatients(patients.filter(patient => patient.id !== id));
+        fetchPatients();
       } else {
         alert('Error deleting patient. Please try again.');
       }
     }
+  };
+
+  const handleEdit = (patient) => {
+    navigate(`/dashboard/patients/updatePatient`, { state: { patient } });
+    fetchPatients();
+  };
+
+  const handleAddNew = () => {
+    navigate('/dashboard/patients/addPatient');
+    fetchPatients();
   };
 
   return (
@@ -57,7 +71,7 @@ const Patients = () => {
             onChange={handleSearchChange}
             className="search-input"
           />
-          <button className="new-patient-button" onClick={() => navigate('/dashboard/patients/addPatient')}>
+          <button className="new-patient-button" onClick={handleAddNew}>
             <FontAwesomeIcon className='plus-icon icon-white' icon={faPlus} />
             New Patient
           </button>
@@ -91,7 +105,7 @@ const Patients = () => {
               </td>
               <td>{patient.totalSessions} seances</td>
               <td className="actions-icons">
-                <FontAwesomeIcon className='icon' color='#265365' icon={faEdit} onClick={() => navigate(`/dashboard/patients/updatePatient`, { state: { patient } })} />
+                <FontAwesomeIcon className='icon' color='#265365' icon={faEdit} onClick={() => handleEdit(patient)} />
                 <FontAwesomeIcon className='icon' color='#265365' icon={faTrash} onClick={() => handleDelete(patient.id)} />
               </td>
             </tr>
