@@ -5,6 +5,7 @@ import Menu from './Menu';
 import Patients from './Patients';
 import Statistics from './Statistics';
 import '../css/dashboard.css';
+import Dashboardpage from './Dashboardpage';
 
 const Dashboard = () => {
   return (
@@ -13,6 +14,7 @@ const Dashboard = () => {
       <div className="content">
         <Routes>
           {/* <Route path="/" element={<DashboardHome />} /> */}
+          <Route path="dashboardpage" element={<Dashboardpage />} />
           <Route path="patients" element={<Patients />} />
           <Route path="statistics" element={<Statistics />} />
         </Routes>
