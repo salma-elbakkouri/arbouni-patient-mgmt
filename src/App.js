@@ -7,8 +7,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import AddPatient from './components/AddPatient';
 import UpdatePatient from './components/UpdatePatient';
-import './css/global.css'; // Import global styles
-import Dashboardpage from './components/Dashboardpage';
+import './css/global.css';
 
 const App = () => {
   return (
@@ -38,14 +37,6 @@ const App = () => {
             element={
               <PrivateRoute>
                 <UpdatePatient />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/dashboard/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboardpage />
               </PrivateRoute>
             }
           />

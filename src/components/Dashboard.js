@@ -13,8 +13,7 @@ const Dashboard = () => {
       <Menu />
       <div className="content">
         <Routes>
-          {/* <Route path="/" element={<DashboardHome />} /> */}
-          <Route path="dashboardpage" element={<Dashboardpage />} />
+          <Route path="/dashboard" element={<Dashboardpage />} />
           <Route path="patients" element={<Patients />} />
           <Route path="statistics" element={<Statistics />} />
         </Routes>

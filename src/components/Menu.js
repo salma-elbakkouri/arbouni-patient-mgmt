@@ -24,7 +24,7 @@ const Menu = () => {
     { name: 'settings', label: 'Parametres', icon: faCog },
     { name: 'logout', label: 'Se deconnecter', icon: faSignOutAlt, className: 'logout-item' },
   ];
-
+  
   const handleMenuClick = (name) => {
     if (name === 'logout') {
       if (window.confirm('Are you sure you want to log out?')) {

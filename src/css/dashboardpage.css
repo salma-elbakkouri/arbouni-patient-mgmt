@@ -1,0 +1,129 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.common-container {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 30px;
+}
+
+.stat-card {
+    border: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 350px;
+    height: 90px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    padding-left: 40px;
+}
+
+.stat-card .icon {
+    font-size: 24px;
+    color: #4D869C;
+    background-color: #afccd763;
+    padding: 20px;
+    border-radius: 20px;
+    margin-right: 20px;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #9FA3B5;
+    font-weight: 400;
+}
+
+.gradient-card {
+    width: 500px;
+    height: 200px;
+    background: linear-gradient(to bottom, #4D869C, #CDE8E5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible; /* Allow overflow */
+}
+
+.gradient-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: white;
+}
+
+.image-content {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    padding-right: 20px; /* Optional: Adjust the right padding */
+    z-index: 1; 
+}
+
+.image-content img {
+    width: 250px;
+    height: auto;
+    position: relative;
+}
+
+.chart-card {
+    border: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Full width of the common-container */
+    height: 300px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(171, 171, 171, 0.1);
+}

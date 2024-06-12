@@ -118,7 +118,6 @@ app.post('/deletePatient', (req, res) => {
   });
 });
 
-// Endpoint to retrieve statistics
 app.get('/api/statistics', (req, res) => {
   const stats = {
     treatmentSessions: [],
@@ -126,6 +125,7 @@ app.get('/api/statistics', (req, res) => {
     totalPatients: 0,
   };
 
+  // Query to get the count of treatment sessions per day of the week
   db.all('SELECT COUNT(*) AS count, strftime("%w", date) AS day FROM patients GROUP BY day', [], (err, rows) => {
     if (err) {
       res.status(500).json({ success: false, message: 'Internal server error' });
@@ -135,6 +135,7 @@ app.get('/api/statistics', (req, res) => {
         stats.treatmentSessions[row.day] = row.count;
       });
 
+      // Query to get the total sessions and completed sessions per type
       db.all('SELECT type, SUM(totalSessions) AS totalSessions, SUM(completedSessions) AS completedSessions FROM patients GROUP BY type', [], (err, rows) => {
         if (err) {
           res.status(500).json({ success: false, message: 'Internal server error' });
@@ -146,11 +147,20 @@ app.get('/api/statistics', (req, res) => {
             percentageCompleted: ((row.completedSessions / row.totalSessions) * 100).toFixed(2),
           }));
 
+          // Sort treatment types by total sessions in descending order
+          stats.treatmentTypes.sort((a, b) => b.totalSessions - a.totalSessions);
+
+          // Query to get the total number of patients
           db.get('SELECT COUNT(*) AS count FROM patients', [], (err, row) => {
             if (err) {
               res.status(500).json({ success: false, message: 'Internal server error' });
             } else {
               stats.totalPatients = row.count;
+
+              // Additional statistics
+              stats.totalSessions = stats.treatmentTypes.reduce((sum, type) => sum + type.totalSessions, 0);
+              stats.topServices = stats.treatmentTypes.slice(0, 2);
+
               res.json(stats);
             }
           });
@@ -159,6 +169,7 @@ app.get('/api/statistics', (req, res) => {
     }
   });
 });
+
 
 // Start the Express server
 app.listen(port, () => {
