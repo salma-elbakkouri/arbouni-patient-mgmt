@@ -89,7 +89,7 @@ select {
 }
 
 option {
-  padding: 10px 0; /* Add padding to each option */
+  padding: 10px 0; 
   background-color: white;
   color: #1f3c47;
   font-size: 15px;

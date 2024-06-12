@@ -7,6 +7,8 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import AddPatient from './components/AddPatient';
 import UpdatePatient from './components/UpdatePatient';
+import AddUser from './components/AddUser'; // Import AddUser component
+import UpdateUser from './components/UpdateUser'; // Import UpdateUser component
 import Users from './components/Users';
 import './css/global.css';
 
@@ -22,6 +24,38 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard/patients/addPatient"
+            element={
+              <PrivateRoute>
+                <AddPatient />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard/patients/updatePatient"
+            element={
+              <PrivateRoute>
+                <UpdatePatient />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard/users/updateUser"
+            element={
+              <PrivateRoute>
+                <UpdateUser />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard/users/addUser"
+            element={
+              <PrivateRoute>
+                <AddUser />
               </PrivateRoute>
             }
           />

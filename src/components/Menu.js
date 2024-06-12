@@ -66,9 +66,7 @@ const Menu = () => {
           <div
             key={item.name}
             className={`menu-item ${item.className || ''} ${activeItem === item.name ? 'active' : ''}`}
-            onClick={() => handleMenuClick(item.name)}
-          >
-            <FontAwesomeIcon icon={item.icon} className="menu-icon" />
+            onClick={() => handleMenuClick(item.name)}>
             {item.label}
           </div>
         ))}
