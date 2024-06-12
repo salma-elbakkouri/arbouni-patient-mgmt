@@ -138,21 +138,44 @@ app.post('/addUser', async (req, res) => {
 
 // Endpoint to update a user
 app.post('/updateUser', async (req, res) => {
-  const { id, username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const { id, username, currentPassword, newPassword } = req.body;
 
-  db.run(`
-    UPDATE users
-    SET username = ?, password = ?
-    WHERE id = ?
-  `, [username, hashedPassword, id], function(err) {
-    if (err) {
-      res.status(500).json({ success: false, message: 'Internal server error' });
-    } else {
-      res.json({ success: true });
-    }
-  });
+  if (!id || !username || !currentPassword || !newPassword) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+
+  try {
+    db.get('SELECT * FROM users WHERE id = ?', [id], async (err, row) => {
+      if (err) {
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+      } else if (!row) {
+        return res.status(400).json({ success: false, message: 'User not found' });
+      }
+
+      const match = await bcrypt.compare(currentPassword, row.password);
+      if (!match) {
+        return res.status(400).json({ success: false, message: 'Current password is incorrect' });
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      db.run(`
+        UPDATE users
+        SET username = ?, password = ?
+        WHERE id = ?
+      `, [username, hashedPassword, id], function(err) {
+        if (err) {
+          return res.status(500).json({ success: false, message: 'Internal server error' });
+        } else {
+          return res.json({ success: true });
+        }
+      });
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: 'Error hashing password' });
+  }
 });
+
+
 
 // Endpoint to get all users
 app.get('/users', (req, res) => {
