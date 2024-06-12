@@ -30,6 +30,17 @@ const db = new sqlite3.Database('./src/data/db.db', (err) => {
         date TEXT DEFAULT (datetime('now', 'localtime'))
       )
     `);
+
+
+
+        // Create users table if it doesn't exist
+        db.run(`
+          CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+          )
+        `);
   }
 });
 
@@ -101,6 +112,68 @@ app.get('/patients', (req, res) => {
       res.status(500).json({ success: false, message: 'Internal server error' });
     } else {
       res.json(rows);
+    }
+  });
+});
+
+
+// User endpoints
+
+// Endpoint to add a new user
+app.post('/addUser', async (req, res) => {
+  const { username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  db.run(`
+    INSERT INTO users (username, password)
+    VALUES (?, ?)
+  `, [username, hashedPassword], function(err) {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
+
+// Endpoint to update a user
+app.post('/updateUser', async (req, res) => {
+  const { id, username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  db.run(`
+    UPDATE users
+    SET username = ?, password = ?
+    WHERE id = ?
+  `, [username, hashedPassword, id], function(err) {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
+
+// Endpoint to get all users
+app.get('/users', (req, res) => {
+  db.all('SELECT * FROM users', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+// Endpoint to delete a user
+app.post('/deleteUser', (req, res) => {
+  const { id } = req.body;
+
+  db.run('DELETE FROM users WHERE id = ?', [id], function(err) {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Internal server error' });
+    } else {
+      res.json({ success: true });
     }
   });
 });

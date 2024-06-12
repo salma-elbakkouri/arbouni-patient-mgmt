@@ -68,6 +68,7 @@ const Menu = () => {
             className={`menu-item ${item.className || ''} ${activeItem === item.name ? 'active' : ''}`}
             onClick={() => handleMenuClick(item.name)}
           >
+            <FontAwesomeIcon icon={item.icon} className="menu-icon" />
             {item.label}
           </div>
         ))}

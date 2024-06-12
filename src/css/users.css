@@ -1,0 +1,106 @@
+/* src/css/users.css */
+
+.users {
+    background-color: white;
+    padding: 15px;
+    background-color: inherit;
+  }
+  .title-header h2{
+    margin-left: 10px;
+  }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .search-input {
+    width: 200px; /* Adjust as necessary */
+    height: 40px;
+    padding: 8px 27px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    margin-right: 10px; /* Adjust margin as necessary */
+  }
+  
+  .new-user-button {
+    background-color: #4D869C; /* Secondary button background color */
+    color: white; /* Button text color */
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    height: 40px;
+    padding: 8px 27px;
+  }
+  
+  .new-user-button:hover {
+    background-color: #23404c; /* Darker hover state */
+  }
+  
+  .plus-icon {
+    background-color: inherit;
+    margin-right: 10px;
+  }
+  
+  .users-table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse; /* Ensure padding doesn't add additional space */
+  }
+  
+  .users-table thead {
+    background-color: #F2F4F7;
+    color: #265365; 
+  }
+  
+  .users-table thead th {
+    padding:20px 25px;
+    background-color: #F2F4F7;
+    font-weight: 600;
+  }
+  
+  .users-table thead th:last-child  
+  {
+    border-top-right-radius: 20px;
+  }
+  .users-table thead th:first-child
+  {
+    border-top-left-radius: 20px;
+  }
+  .users-table tbody tr:last-child > td:first-child
+  {
+    border-bottom-left-radius: 20px;
+  }
+  
+  .users-table tbody tr:last-child > td:last-child
+  {
+    border-bottom-right-radius: 20px;
+  }
+  
+  .users-table tbody tr {
+    background-color: rgba(250, 250, 250, 0.779); 
+  }
+  .users-table tbody tr td 
+  {
+    background-color: inherit; 
+    padding:20px 25px;
+  }
+  
+  .users-table tr th 
+  {
+    text-align: left;
+  }
+  
+  .actions-icons .icon {
+    color: #265365;
+    background-color: inherit;
+    cursor: pointer;
+  }
+  
+  .actions-icons .icon:hover {
+    color: #23404c;
+    background-color: inherit;
+  }
+  

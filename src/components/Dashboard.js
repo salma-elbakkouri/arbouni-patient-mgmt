@@ -6,6 +6,7 @@ import Patients from './Patients';
 import Statistics from './Statistics';
 import '../css/dashboard.css';
 import Dashboardpage from './Dashboardpage';
+import Users from './Users'; 
 
 const Dashboard = () => {
   return (
@@ -16,6 +17,7 @@ const Dashboard = () => {
           <Route path="/dashboard" element={<Dashboardpage />} />
           <Route path="patients" element={<Patients />} />
           <Route path="statistics" element={<Statistics />} />
+          <Route path="users" element={<Users />} />
         </Routes>
       </div>
     </div>
